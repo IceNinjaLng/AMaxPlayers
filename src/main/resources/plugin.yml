@@ -1,0 +1,14 @@
+name: Amaxplayers
+version: '${project.version}'
+main: net.theiceninja.amaxplayers.Main
+api-version: 1.17
+authors: [ TheIceNinja ]
+description: sets the number of the members on the server
+website: github.com/theiceninja
+commands:
+  amaxplayers:
+    description: sets the number of players
+    usage: /maxplayers <num>
+    aliases:
+      - maxplayers
+
