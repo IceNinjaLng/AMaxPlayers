@@ -1,5 +1,4 @@
 config: 1.0
-player-err: "&cYou cant run this command on console!"
 setmax-usage: "&cYou need to follow the usage: /maxplayers <number>"
 num-done: "&cThe number of the players who can join the server is now &e%num%"
 no-num: "&cThis is not a number so please follow the usage\n&eYou need to follow the usage: /maxplayers <number>"

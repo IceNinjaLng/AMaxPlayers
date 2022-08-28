@@ -18,7 +18,18 @@ public class SetMaxCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)){
-            sender.sendMessage(color(plugin.getConfig().getString("player-err")));
+            if (args.length == 0){
+                sender.sendMessage(color("&cYou need to follow the usage: /maxplayers <number>"));
+                return true;
+            }else{
+                try {
+                    int num = Integer.parseInt(args[0]);
+                    Bukkit.setMaxPlayers(num);
+                    sender.sendMessage(color("&cThe number of the players who can join the server is now &e" + num));
+                }catch (Exception e) {
+                    sender.sendMessage(color("&cThis is not a number so please follow the usage\n&eYou need to follow the usage: /maxplayers <number>"));
+                }
+            }
             return true;
         }
         Player p = (Player) sender;
