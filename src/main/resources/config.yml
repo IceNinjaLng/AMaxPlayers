@@ -1,5 +1,8 @@
 config: 1.0
-setmax-usage: "&cYou need to follow the usage: /maxplayers <number>"
-num-done: "&cThe number of the players who can join the server is now &e%num%"
-no-num: "&cThis is not a number so please follow the usage\n&eYou need to follow the usage: /maxplayers <number>"
-no-permission: "&cYou dont have permission to that command!"
+messages:
+  setmax-usage: "&cYou need to follow the usage: /maxplayers <number>"
+  num-done: "&cThe number of the players who can join the server is now &e%num%"
+  no-num: "&cThis is not a number so please follow the usage\n&eYou need to follow the usage: /maxplayers <number>"
+  no-permission: "&cYou dont have permission to that command!"
+  ## Number change ##
+num: 33
