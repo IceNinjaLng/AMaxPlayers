@@ -8,7 +8,7 @@ import org.bukkit.event.server.ServerListPingEvent;
 public class MaxListener implements Listener {
 
     @EventHandler
-    public void onServerListPing(ServerListPingEvent e){
+    public void onServerListPing(ServerListPingEvent e) {
         e.setMaxPlayers(Bukkit.getMaxPlayers());
     }
 }
