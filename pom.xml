@@ -6,7 +6,7 @@
 
     <groupId>net.theiceninja</groupId>
     <artifactId>amaxplayers</artifactId>
-    <version>1.0</version>
+    <version>1.3</version>
     <packaging>jar</packaging>
 
     <name>Amaxplayers</name>
