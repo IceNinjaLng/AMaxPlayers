@@ -31,7 +31,7 @@ public class SetMaxCommand implements CommandExecutor {
                     plugin.saveConfig();
                     sender.sendMessage(color("&cThe number of the players who can join the server is now &e" + num));
                 } catch (Exception e) {
-                    if (args[0].equalsIgnoreCase("reload")){
+                    if (args[0].equalsIgnoreCase("reload")) {
                         plugin.reloadConfig();
                         Bukkit.setMaxPlayers(plugin.getConfig().getInt("num"));
                         sender.sendMessage(color("&aConfig reload"));
