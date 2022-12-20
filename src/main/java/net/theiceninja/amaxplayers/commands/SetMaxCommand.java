@@ -1,6 +1,6 @@
 package net.theiceninja.amaxplayers.commands;
 
-import net.theiceninja.amaxplayers.Main;
+import net.theiceninja.amaxplayers.MaxPlayersPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -10,18 +10,17 @@ import org.bukkit.entity.Player;
 
 public class SetMaxCommand implements CommandExecutor {
 
-    Main plugin;
+    private MaxPlayersPlugin plugin;
 
-    public SetMaxCommand(Main plugin) {
+    public SetMaxCommand(MaxPlayersPlugin plugin) {
         this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            if (args.length == 0){
+            if (args.length == 0) {
                 sender.sendMessage(color("&cYou need to follow the usage: /maxplayers <number|reload>"));
-                return true;
             } else {
                 try {
                     int num = Integer.parseInt(args[0]);
@@ -35,7 +34,7 @@ public class SetMaxCommand implements CommandExecutor {
                         plugin.reloadConfig();
                         Bukkit.setMaxPlayers(plugin.getConfig().getInt("num"));
                         sender.sendMessage(color("&aConfig reload"));
-                    }else{
+                    } else {
                         sender.sendMessage(color("&cThis is not a number so please follow the usage\n&eYou need to follow the usage: /maxplayers <number|reload>"));
                     }
 
@@ -43,14 +42,16 @@ public class SetMaxCommand implements CommandExecutor {
             }
             return true;
         }
+
         Player p = (Player) sender;
+
         if (!p.hasPermission("maxplayers.setmax")) {
             p.sendMessage(color(plugin.getConfig().getString("messages.no-permission")));
             return true;
         }
-        if (args.length == 0){
+
+        if (args.length == 0) {
             p.sendMessage(color(plugin.getConfig().getString("messages.setmax-usage")));
-            return true;
         } else {
             try {
                 int num = Integer.parseInt(args[0]);
@@ -70,6 +71,7 @@ public class SetMaxCommand implements CommandExecutor {
 
             }
         }
+
         return true;
     }
     private String color(String s) {

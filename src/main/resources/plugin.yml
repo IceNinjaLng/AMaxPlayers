@@ -1,6 +1,6 @@
 name: Amaxplayers
 version: '${project.version}'
-main: net.theiceninja.amaxplayers.Main
+main: net.theiceninja.amaxplayers.MaxPlayersPlugin
 api-version: 1.17
 authors: [ TheIceNinja ]
 description: sets the number of the members on the server

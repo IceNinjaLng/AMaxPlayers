@@ -5,7 +5,7 @@ import net.theiceninja.amaxplayers.listeners.MaxListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Main extends JavaPlugin {
+public final class MaxPlayersPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
@@ -17,6 +17,5 @@ public final class Main extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {
-    }
+    public void onDisable() {}
 }
