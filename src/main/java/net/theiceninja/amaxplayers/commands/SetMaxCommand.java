@@ -56,7 +56,6 @@ public class SetMaxCommand implements CommandExecutor {
                 } else {
                     sender.sendMessage(color(plugin.getConfig().getString("messages.no-num")));
                 }
-
             }
         }
     }
