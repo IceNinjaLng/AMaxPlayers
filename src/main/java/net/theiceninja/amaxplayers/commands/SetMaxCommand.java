@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class SetMaxCommand implements CommandExecutor {
 
-    private MaxPlayersPlugin plugin;
+    private final MaxPlayersPlugin plugin;
 
     public SetMaxCommand(MaxPlayersPlugin plugin) {
         this.plugin = plugin;
@@ -19,62 +19,45 @@ public class SetMaxCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            if (args.length == 0) {
-                sender.sendMessage(color("&cYou need to follow the usage: /maxplayers <number|reload>"));
-            } else {
-                try {
-                    int num = Integer.parseInt(args[0]);
-                    Bukkit.setMaxPlayers(num);
-                    plugin.getConfig().set("num", num);
-                    plugin.getConfig().options().copyDefaults(true);
-                    plugin.saveConfig();
-                    sender.sendMessage(color("&cThe number of the players who can join the server is now &e" + num));
-                } catch (Exception e) {
-                    if (args[0].equalsIgnoreCase("reload")) {
-                        plugin.reloadConfig();
-                        Bukkit.setMaxPlayers(plugin.getConfig().getInt("num"));
-                        sender.sendMessage(color("&aConfig reload"));
-                    } else {
-                        sender.sendMessage(color("&cThis is not a number so please follow the usage\n&eYou need to follow the usage: /maxplayers <number|reload>"));
-                    }
-
-                }
-            }
+            executeMaxCommand(sender, args);
             return true;
         }
 
-        Player p = (Player) sender;
-
-        if (!p.hasPermission("maxplayers.setmax")) {
-            p.sendMessage(color(plugin.getConfig().getString("messages.no-permission")));
+        Player player = (Player) sender;
+        if (!player.hasPermission("maxplayers.setmax")) {
+            player.sendMessage(color(plugin.getConfig().getString("messages.no-permission")));
             return true;
         }
 
+        executeMaxCommand(sender, args);
+
+        return true;
+    }
+
+    private String color(String s) {
+        return ChatColor.translateAlternateColorCodes('&', s);
+    }
+
+    private void executeMaxCommand(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            p.sendMessage(color(plugin.getConfig().getString("messages.setmax-usage")));
+            sender.sendMessage(color(plugin.getConfig().getString("messages.setmax-usage")));
         } else {
             try {
                 int num = Integer.parseInt(args[0]);
                 Bukkit.setMaxPlayers(num);
                 plugin.getConfig().set("num", num);
-                plugin.getConfig().options().copyDefaults(true);
                 plugin.saveConfig();
-                p.sendMessage(color(plugin.getConfig().getString("messages.num-done")).replaceAll("%num%", String.valueOf(num)));
+                sender.sendMessage(color(plugin.getConfig().getString("messages.num-done")).replaceAll("%num%", String.valueOf(num)));
             } catch (Exception e) {
                 if (args[0].equalsIgnoreCase("reload")) {
                     plugin.reloadConfig();
                     Bukkit.setMaxPlayers(plugin.getConfig().getInt("num"));
-                    p.sendMessage(color(plugin.getConfig().getString("messages.config-reload")));
+                    sender.sendMessage(color(plugin.getConfig().getString("messages.config-reload")));
                 } else {
-                    p.sendMessage(color(plugin.getConfig().getString("messages.no-num")));
+                    sender.sendMessage(color(plugin.getConfig().getString("messages.no-num")));
                 }
 
             }
         }
-
-        return true;
-    }
-    private String color(String s) {
-        return ChatColor.translateAlternateColorCodes('&', s);
     }
 }
