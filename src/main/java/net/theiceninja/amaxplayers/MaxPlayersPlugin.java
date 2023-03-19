@@ -11,8 +11,10 @@ public final class MaxPlayersPlugin extends JavaPlugin {
     public void onEnable() {
         getConfig().options().copyDefaults(false);
         saveDefaultConfig();
+
         getCommand("amaxplayers").setExecutor(new SetMaxCommand(this));
         getServer().getPluginManager().registerEvents(new MaxListener(), this);
+
         Bukkit.setMaxPlayers(getConfig().getInt("num"));
     }
 
