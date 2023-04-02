@@ -17,7 +17,4 @@ public final class MaxPlayersPlugin extends JavaPlugin {
 
         Bukkit.setMaxPlayers(getConfig().getInt("num"));
     }
-
-    @Override
-    public void onDisable() {}
 }
