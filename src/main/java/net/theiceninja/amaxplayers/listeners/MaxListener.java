@@ -1,14 +1,20 @@
 package net.theiceninja.amaxplayers.listeners;
 
-import org.bukkit.Bukkit;
+import net.theiceninja.amaxplayers.MaxPlayersPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
-public class MaxListener implements Listener {
+public final class MaxListener implements Listener {
+
+    private final MaxPlayersPlugin plugin;
+
+    public MaxListener(MaxPlayersPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
-    public void onServerListPing(ServerListPingEvent event) {
-        event.setMaxPlayers(Bukkit.getMaxPlayers());
+    private void onServerListPing(ServerListPingEvent event) {
+        event.setMaxPlayers(plugin.getServer().getMaxPlayers());
     }
 }

@@ -1,14 +1,14 @@
 package net.theiceninja.amaxplayers.commands;
 
 import net.theiceninja.amaxplayers.MaxPlayersPlugin;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-public class SetMaxCommand implements CommandExecutor {
+public final class SetMaxCommand implements CommandExecutor {
 
     private final MaxPlayersPlugin plugin;
 
@@ -17,13 +17,12 @@ public class SetMaxCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+        if (!(sender instanceof Player player)) {
             executeMaxCommand(sender, args);
             return true;
         }
 
-        Player player = (Player) sender;
         if (!player.hasPermission("maxplayers.setmax")) {
             player.sendMessage(color(plugin.getConfig().getString("messages.no-permission")));
             return true;
@@ -44,14 +43,17 @@ public class SetMaxCommand implements CommandExecutor {
         } else {
             try {
                 int num = Integer.parseInt(args[0]);
-                Bukkit.setMaxPlayers(num);
+
+                plugin.getServer().setMaxPlayers(num);
                 plugin.getConfig().set("num", num);
                 plugin.saveConfig();
+
                 sender.sendMessage(color(plugin.getConfig().getString("messages.num-done")).replaceAll("%num%", String.valueOf(num)));
             } catch (Exception e) {
                 if (args[0].equalsIgnoreCase("reload")) {
                     plugin.reloadConfig();
-                    Bukkit.setMaxPlayers(plugin.getConfig().getInt("num"));
+                    plugin.getServer().setMaxPlayers(plugin.getConfig().getInt("num"));
+
                     sender.sendMessage(color(plugin.getConfig().getString("messages.config-reload")));
                 } else {
                     sender.sendMessage(color(plugin.getConfig().getString("messages.no-num")));
