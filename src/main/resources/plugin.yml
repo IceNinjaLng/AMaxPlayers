@@ -9,6 +9,7 @@ commands:
   amaxplayers:
     description: sets the number of players
     usage: /maxplayers <num|reload>
+    permission: maxplayers.setmax
     aliases:
       - maxplayers
 
