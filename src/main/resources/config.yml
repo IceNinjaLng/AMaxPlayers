@@ -1,9 +1,9 @@
 config: 1.0
 messages:
-  setmax-usage: "&cYou need to follow the usage: /maxplayers <number|reload>"
-  num-done: "&cThe number of the players who can join the server is now &e%num%"
-  no-num: "&cThis is not a number so please follow the usage\n&eYou need to follow the usage: /maxplayers <number|reload>"
-  no-permission: "&cYou dont have permission to that command!"
-  config-reload: "&aConfig reloaded"
+  setmax-usage: "&#F3D346You need to follow the usage: /maxplayers <number|reload>"
+  num-done: "&#31F13AThe number of the players who can join the server is now &#F3D346%num%"
+  no-num: "&#E81E33This is not a number so please follow the usage\n&#F3D346You need to follow the usage: /maxplayers <number|reload>"
+  no-permission: "&#E81E33You dont have permission to that command!"
+  config-reload: "&#31F13AConfig reloaded, you can now see the changes."
   ## Number change ##
 num: 33

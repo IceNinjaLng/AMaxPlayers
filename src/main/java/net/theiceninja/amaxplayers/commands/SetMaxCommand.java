@@ -1,11 +1,10 @@
 package net.theiceninja.amaxplayers.commands;
 
 import net.theiceninja.amaxplayers.MaxPlayersPlugin;
-import org.bukkit.ChatColor;
+import net.theiceninja.amaxplayers.utils.ColorUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public final class SetMaxCommand implements CommandExecutor {
@@ -18,47 +17,33 @@ public final class SetMaxCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-        if (!(sender instanceof Player player)) {
-            executeMaxCommand(sender, args);
+        if (!sender.hasPermission("maxplayers.admin")) {
+            sender.sendMessage(ColorUtil.color(plugin.getConfig().getString("messages.no-permission")));
             return true;
         }
 
-        if (!player.hasPermission("maxplayers.setmax")) {
-            player.sendMessage(color(plugin.getConfig().getString("messages.no-permission")));
+        if (args.length == 0) {
+            sender.sendMessage(ColorUtil.color(plugin.getConfig().getString("messages.setmax-usage")));
             return true;
         }
 
-        executeMaxCommand(sender, args);
+        try {
+            plugin.getServer().setMaxPlayers(Integer.parseInt(args[0]));
+            plugin.getConfig().set("num", Integer.parseInt(args[0]));
+            plugin.saveConfig();
+
+            sender.sendMessage(ColorUtil.color(plugin.getConfig().getString("messages.num-done"))
+                    .replaceAll("%num%", String.valueOf(Integer.parseInt(args[0]))));
+        } catch (Exception ex) {
+            if (args[0].equalsIgnoreCase("reload")) {
+                plugin.reloadConfig();
+                plugin.getServer().setMaxPlayers(plugin.getConfig().getInt("num"));
+
+                sender.sendMessage(ColorUtil.color(plugin.getConfig().getString("messages.config-reload")));
+            } else
+                sender.sendMessage(ColorUtil.color(plugin.getConfig().getString("messages.no-num")));
+        }
 
         return true;
-    }
-
-    private String color(String s) {
-        return ChatColor.translateAlternateColorCodes('&', s);
-    }
-
-    private void executeMaxCommand(CommandSender sender, String[] args) {
-        if (args.length == 0) {
-            sender.sendMessage(color(plugin.getConfig().getString("messages.setmax-usage")));
-        } else {
-            try {
-                int num = Integer.parseInt(args[0]);
-
-                plugin.getServer().setMaxPlayers(num);
-                plugin.getConfig().set("num", num);
-                plugin.saveConfig();
-
-                sender.sendMessage(color(plugin.getConfig().getString("messages.num-done")).replaceAll("%num%", String.valueOf(num)));
-            } catch (Exception e) {
-                if (args[0].equalsIgnoreCase("reload")) {
-                    plugin.reloadConfig();
-                    plugin.getServer().setMaxPlayers(plugin.getConfig().getInt("num"));
-
-                    sender.sendMessage(color(plugin.getConfig().getString("messages.config-reload")));
-                } else {
-                    sender.sendMessage(color(plugin.getConfig().getString("messages.no-num")));
-                }
-            }
-        }
     }
 }

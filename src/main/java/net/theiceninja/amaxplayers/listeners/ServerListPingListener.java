@@ -5,11 +5,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
-public final class MaxListener implements Listener {
+public final class ServerListPingListener implements Listener {
 
     private final MaxPlayersPlugin plugin;
 
-    public MaxListener(MaxPlayersPlugin plugin) {
+    public ServerListPingListener(MaxPlayersPlugin plugin) {
         this.plugin = plugin;
     }
 
