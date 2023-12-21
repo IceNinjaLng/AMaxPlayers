@@ -3,24 +3,20 @@ package net.theiceninja.amaxplayers.utils;
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public final class ColorUtil {
 
     public static String color(@NotNull String str) {
-        final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
-        final String[] text = str.split(String.format(WITH_DELIMITER, "&"));
+        Pattern pattern = Pattern.compile("&#[a-fA-F0-9]{6}");
+        Matcher matcher = pattern.matcher(str);
 
-        StringBuilder finalText = new StringBuilder();
-        for (int i = 0; i < text.length; i++) {
-            if (text[i].equalsIgnoreCase("&")) {
-                i++;
-                if (text[i].charAt(0) == '#')
-                    finalText.append(ChatColor.of(text[i].substring(0, 7))).append(text[i].substring(7));
-                else
-                    finalText.append(ChatColor.translateAlternateColorCodes('&', "&" + text[i]));
-            } else
-                finalText.append(text[i]);
-        }
+        String coloredMessage = matcher.replaceAll(matchResult -> {
+            ChatColor color = ChatColor.of(matchResult.group().substring(1));
+            return color.toString();
+        });
 
-        return finalText.toString();
+        return ChatColor.translateAlternateColorCodes('&', coloredMessage);
     }
 }

@@ -18,12 +18,12 @@ public final class SetMaxCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (!sender.hasPermission("maxplayers.admin")) {
-            sender.sendMessage(ColorUtil.color(plugin.getConfig().getString("messages.no-permission")));
+            sender.sendMessage(plugin.getStringFromConfig("messages.no-permission"));
             return true;
         }
 
         if (args.length == 0) {
-            sender.sendMessage(ColorUtil.color(plugin.getConfig().getString("messages.setmax-usage")));
+            sender.sendMessage(plugin.getStringFromConfig("messages.setmax-usage"));
             return true;
         }
 
@@ -32,16 +32,16 @@ public final class SetMaxCommand implements CommandExecutor {
             plugin.getConfig().set("num", Integer.parseInt(args[0]));
             plugin.saveConfig();
 
-            sender.sendMessage(ColorUtil.color(plugin.getConfig().getString("messages.num-done"))
+            sender.sendMessage(plugin.getStringFromConfig("messages.num-done")
                     .replaceAll("%num%", String.valueOf(Integer.parseInt(args[0]))));
         } catch (Exception ex) {
             if (args[0].equalsIgnoreCase("reload")) {
                 plugin.reloadConfig();
                 plugin.getServer().setMaxPlayers(plugin.getConfig().getInt("num"));
 
-                sender.sendMessage(ColorUtil.color(plugin.getConfig().getString("messages.config-reload")));
+                sender.sendMessage(plugin.getStringFromConfig("messages.config-reload"));
             } else
-                sender.sendMessage(ColorUtil.color(plugin.getConfig().getString("messages.no-num")));
+                sender.sendMessage(plugin.getStringFromConfig("messages.no-num"));
         }
 
         return true;
