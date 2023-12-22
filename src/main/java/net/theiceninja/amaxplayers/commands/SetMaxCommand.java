@@ -1,7 +1,6 @@
 package net.theiceninja.amaxplayers.commands;
 
 import net.theiceninja.amaxplayers.MaxPlayersPlugin;
-import net.theiceninja.amaxplayers.utils.ColorUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
